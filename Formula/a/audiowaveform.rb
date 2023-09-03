@@ -34,10 +34,16 @@ class Audiowaveform < Formula
 
   test do
       system bin/"audiowaveform", "--help"
-      system "wget" "https://github.com/georgettica/generate-random-audio/releases/download/v0.1.11/generate-random-audio_v0.1.11_x86_64-unknown-linux-musl.tar.gz"
-      system "tar xf" "generate-random-audio_v0.1.11_x86_64-unknown-linux-musl.tar.gz"
-      system "generate-random-audio"
-      system "audiowaveform" "-i" "random_audio.wav" "-o" "random_audio.png"
-      system "file" "random_audio.png"
+      if OS.linux?
+        system "wget", "https://github.com/georgettica/generate-random-audio/releases/download/v0.1.11/generate-random-audio_v0.1.11_x86_64-unknown-linux-musl.tar.gz"
+        system "tar", "xf", "generate-random-audio_v0.1.11_x86_64-unknown-linux-musl.tar.gz"
+      end
+      if OS.mac?
+        system "wget", "https://github.com/georgettica/generate-random-audio/releases/download/v0.1.11/generate-random-audio_v0.1.11_x86_64-apple-darwin.zip"
+        system "unzip", "generate-random-audio_v0.1.11_x86_64-apple-darwin.zip"
+      end
+      system "./generate-random-audio"
+      system "audiowaveform", "-i", "random_audio.wav", "-o", "random_audio.png"
+      system "file", "random_audio.png"
   end
 end

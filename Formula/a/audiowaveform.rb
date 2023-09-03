@@ -5,10 +5,10 @@ class Audiowaveform < Formula
   sha256 "bd1254a4ddbc0eb68eb8dbd549335c3207260afdae4bf80cfe5d4129de51d1e7"
   license "GPL-3.0-or-later"
 
+  depends_on "wget" => :build
   # if MacOS.version < :mavericks  depends_on "boost"
   # # => "c++11" end - commented out because of audit, maybe it's needed
   depends_on "boost"
-
   depends_on "cmake"
   depends_on "gd"
   depends_on "libid3tag"
@@ -45,4 +45,3 @@ class Audiowaveform < Formula
     system bin/"audiowaveform", "-i", "random_audio.wav", "-o", "random_audio.png"
     system "file", "random_audio.png"
   end
-end

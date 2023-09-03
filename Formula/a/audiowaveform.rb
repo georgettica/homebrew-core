@@ -45,3 +45,4 @@ class Audiowaveform < Formula
     system bin/"audiowaveform", "-i", "random_audio.wav", "-o", "random_audio.png"
     system "file", "random_audio.png"
   end
+end

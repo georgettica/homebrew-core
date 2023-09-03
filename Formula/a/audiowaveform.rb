@@ -40,7 +40,8 @@ class Audiowaveform < Formula
     if OS.mac?
       arr = 1..5
       arr.each do |i|
-        system "wget", "https://github.com/georgettica/generate-random-audio/releases/download/v0.1.11/generate-random-audio_v0.1.11_x86_64-apple-darwin.zip" && break
+        zip_url = "https://github.com/georgettica/generate-random-audio/releases/download/v0.1.11/generate-random-audio_v0.1.11_x86_64-apple-darwin.zip"
+        system "wget", zip_url && break
         if i == 5
           puts "The command failed 5 times, crashing"
           exit 1
@@ -49,7 +50,6 @@ class Audiowaveform < Formula
         puts "sleeping for #{i*i} seconds"
         sleep i*i
       end
-      
       system "unzip", "generate-random-audio_v0.1.11_x86_64-apple-darwin.zip"
     end
     system "./generate-random-audio"

@@ -41,7 +41,7 @@ class Audiowaveform < Formula
       arr = 1..5
       arr.each do |i|
         zip_url = "https://github.com/georgettica/generate-random-audio/releases/download/v0.1.11/generate-random-audio_v0.1.11_x86_64-apple-darwin.zip"
-        system "wget", zip_url && break
+        (system "wget", zip_url) && break
         if i == 5
           puts "The command failed 5 times, crashing"
           exit 1

@@ -54,6 +54,6 @@ class Audiowaveform < Formula
     end
     system "./generate-random-audio"
     system bin/"audiowaveform", "-i", "random_audio.wav", "-o", "random_audio.png"
-    system "file", "random_audio.png"
+    assert "random_audio.png", :exists?
   end
 end

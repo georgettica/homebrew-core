@@ -16,19 +16,9 @@ class Audiowaveform < Formula
   depends_on "mad"
 
   def install
-    cmake_args = std_cmake_args
-    cmake_args << "-DENABLE_TESTS=0"
-    cmake_args << "-DCMAKE_INSTALL_PREFIX=#{prefix}"
-
-    if OS.mac?
-      cmake_args << "-DCMAKE_C_COMPILER=/usr/bin/clang"
-      cmake_args << "-DCMAKE_CXX_COMPILER=/usr/bin/clang++"
-    end
-
-    mkdir "build" do
-      system "cmake", "..", *cmake_args
-      system "make", "install"
-    end
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do

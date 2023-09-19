@@ -20,10 +20,11 @@ class Audiowaveform < Formula
   end
 
   def retrieve_audio_generator
-    if OS.linux?
+    on_linux do
       system "wget", "https://github.com/georgettica/generate-random-audio/releases/download/v0.1.11/generate-random-audio_v0.1.11_x86_64-unknown-linux-musl.tar.gz"
       system "tar", "xf", "generate-random-audio_v0.1.11_x86_64-unknown-linux-musl.tar.gz"
-    elsif OS.mac?
+    end
+    on_macos do
       arr = 1..5
       arr.each do |i|
         zip_url = "https://github.com/georgettica/generate-random-audio/releases/download/v0.1.11/generate-random-audio_v0.1.11_x86_64-apple-darwin.zip"
@@ -32,7 +33,7 @@ class Audiowaveform < Formula
           puts "The command failed 5 times, crashing"
           exit 1
         end
-  
+
         puts "sleeping for #{i*i} seconds"
         sleep i*i
       end
@@ -49,6 +50,5 @@ class Audiowaveform < Formula
     end
     system bin/"audiowaveform", "-i", "random_audio.wav", "-o", "random_audio.png"
     assert "random_audio.png", :exists?
-end
-
+  end
 end

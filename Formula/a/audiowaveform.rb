@@ -19,13 +19,11 @@ class Audiowaveform < Formula
     system "cmake", "--install", "build"
   end
 
-  test do
-    system bin/"audiowaveform", "--help"
+  def retrieve_audio_generator
     if OS.linux?
       system "wget", "https://github.com/georgettica/generate-random-audio/releases/download/v0.1.11/generate-random-audio_v0.1.11_x86_64-unknown-linux-musl.tar.gz"
       system "tar", "xf", "generate-random-audio_v0.1.11_x86_64-unknown-linux-musl.tar.gz"
-    end
-    if OS.mac?
+    elsif OS.mac?
       arr = 1..5
       arr.each do |i|
         zip_url = "https://github.com/georgettica/generate-random-audio/releases/download/v0.1.11/generate-random-audio_v0.1.11_x86_64-apple-darwin.zip"
@@ -34,14 +32,22 @@ class Audiowaveform < Formula
           puts "The command failed 5 times, crashing"
           exit 1
         end
-
+  
         puts "sleeping for #{i*i} seconds"
         sleep i*i
       end
       system "unzip", "generate-random-audio_v0.1.11_x86_64-apple-darwin.zip"
     end
-    system "./generate-random-audio"
+    yield
+  end
+
+  test do
+    system bin/"audiowaveform", "--help"
+    retrieve_audio_generator do
+      system "./generate-random-audio"
+    end
     system bin/"audiowaveform", "-i", "random_audio.wav", "-o", "random_audio.png"
     assert "random_audio.png", :exists?
-  end
+end
+
 end

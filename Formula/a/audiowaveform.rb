@@ -6,8 +6,6 @@ class Audiowaveform < Formula
   license "GPL-3.0-or-later"
 
   depends_on "wget" => :test
-  # if MacOS.version < :mavericks  depends_on "boost"
-  # # => "c++11" end - commented out because of audit, maybe it's needed
   depends_on "boost"
   depends_on "cmake"
   depends_on "gd"

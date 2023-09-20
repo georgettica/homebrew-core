@@ -21,23 +21,16 @@ class Audiowaveform < Formula
 
   def retrieve_audio_generator
     on_linux do
-      system "wget", "https://github.com/georgettica/generate-random-audio/releases/download/v0.1.11/generate-random-audio_v0.1.11_x86_64-unknown-linux-musl.tar.gz"
-      system "tar", "xf", "generate-random-audio_v0.1.11_x86_64-unknown-linux-musl.tar.gz"
+      resource "generate-random-audio" do
+        url "https://github.com/georgettica/generate-random-audio/releases/download/v0.1.11/generate-random-audio_v0.1.11_x86_64-unknown-linux-musl.tar.gz"
+        sha256 "a066c9b760010f8ac711b7c88bd4a566ed1ab789234f1633d35dc4db654aab0c"
+      end
     end
     on_macos do
-      arr = 1..5
-      arr.each do |i|
-        zip_url = "https://github.com/georgettica/generate-random-audio/releases/download/v0.1.11/generate-random-audio_v0.1.11_x86_64-apple-darwin.zip"
-        (system "wget", zip_url) && break
-        if i == 5
-          puts "The command failed 5 times, crashing"
-          exit 1
-        end
-
-        puts "sleeping for #{i*i} seconds"
-        sleep i*i
+      resource "generate-random-audio" do
+        url "https://github.com/georgettica/generate-random-audio/releases/download/v0.1.11/generate-random-audio_v0.1.11_x86_64-apple-darwin.zip"
+        sha256 "0072a0911eb070fa68d74573c9f233bc7dfa51ccb29eca04da79a9534e91542d"
       end
-      system "unzip", "generate-random-audio_v0.1.11_x86_64-apple-darwin.zip"
     end
     yield
   end
